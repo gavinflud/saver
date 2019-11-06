@@ -43,7 +43,7 @@ dependencies {
     testImplementation("com.h2database:h2")
     testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
     testCompile("org.junit.jupiter:junit-jupiter-params:5.2.0")
-    testCompile("org.mockito:mockito-junit-jupiter:2.28.2")
+    testCompile("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
 }
 

@@ -20,7 +20,7 @@ abstract class BaseService<T : IdentifiableEntity>(protected open val repository
      * @param resource The new resource
      * @return The persisted resource
      */
-    fun create(resource: T): T {
+    open fun create(resource: T): T {
         return repository.save(resource)
     }
 
@@ -30,7 +30,7 @@ abstract class BaseService<T : IdentifiableEntity>(protected open val repository
      * @param id The ID identifying the resource
      * @return An Optional wrapper of the result
      */
-    fun findOne(id: Long): Optional<T> {
+    open fun findOne(id: Long): Optional<T> {
         return repository.findById(id)
     }
 
@@ -40,7 +40,7 @@ abstract class BaseService<T : IdentifiableEntity>(protected open val repository
      * @param pageable Defines the paging structure for the result
      * @return A page of results
      */
-    fun findAll(pageable: Pageable): Page<T> {
+    open fun findAll(pageable: Pageable): Page<T> {
         return repository.findAll(pageable)
     }
 
@@ -50,7 +50,7 @@ abstract class BaseService<T : IdentifiableEntity>(protected open val repository
      * @param resource The resource to update
      * @return The persisted resource with the changes intact
      */
-    fun update(resource: T): T {
+    open fun update(resource: T): T {
         return repository.save(resource)
     }
 
@@ -60,7 +60,7 @@ abstract class BaseService<T : IdentifiableEntity>(protected open val repository
      * @param id The ID identifying the resource
      * @return The resource as it was before it was deleted
      */
-    fun delete(id: Long): T {
+    open fun delete(id: Long): T {
         val entityResult = findOne(id)
         if (entityResult.isPresent) {
             val entity = entityResult.get()
