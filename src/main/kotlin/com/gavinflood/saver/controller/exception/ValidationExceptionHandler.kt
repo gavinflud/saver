@@ -57,7 +57,6 @@ class ValidationExceptionHandler : ResponseEntityExceptionHandler() {
         return ResponseEntity.status(status).body(validationResponse)
     }
 
-
     /**
      * Override the [handleMethodArgumentNotValid] function to return the field errors stored under the bindingResult.
      *
