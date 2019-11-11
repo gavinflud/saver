@@ -3,6 +3,7 @@ package com.gavinflood.saver.controller
 import com.gavinflood.saver.domain.ApplicationUser
 import com.gavinflood.saver.domain.response.sendOkResponse
 import com.gavinflood.saver.service.ApplicationUserService
+import com.gavinflood.saver.service.SecurityService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -14,7 +15,8 @@ import javax.validation.Valid
  */
 @RestController
 @RequestMapping("/api/users")
-class ApplicationUserController(override val service: ApplicationUserService)
+class ApplicationUserController(override val service: ApplicationUserService,
+                                private val securityService: SecurityService)
     : BaseController<ApplicationUser, ApplicationUserService>(service) {
 
     /**
@@ -37,6 +39,16 @@ class ApplicationUserController(override val service: ApplicationUserService)
     @GetMapping("/{id}")
     fun findOne(@PathVariable id: Long): ResponseEntity<ApplicationUser> {
         return sendOkResponse(service.findOne(id).orElseThrow())
+    }
+
+    /**
+     * Get the current user.
+     *
+     * @return The current user, if the authentication is valid
+     */
+    @GetMapping("/current")
+    fun getCurrent(): ResponseEntity<ApplicationUser> {
+        return sendOkResponse(securityService.getCurrentUser().get())
     }
 
 }

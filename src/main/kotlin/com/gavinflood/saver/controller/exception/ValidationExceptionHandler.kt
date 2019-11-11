@@ -1,5 +1,6 @@
 package com.gavinflood.saver.controller.exception
 
+import com.gavinflood.saver.domain.validation.exception.ServiceValidationException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -43,6 +44,21 @@ class ValidationExceptionHandler : ResponseEntityExceptionHandler() {
     }
 
     /**
+     * Handle [ServiceValidationException] occurrences to return the validation errors raised.
+     *
+     * @param exception The exception
+     * @return A ResponseEntity listing the validation errors
+     */
+    @ExceptionHandler(value = [ServiceValidationException::class])
+    fun handleServiceValidationException(exception: ServiceValidationException): ResponseEntity<ValidationResponse> {
+        val status = HttpStatus.UNPROCESSABLE_ENTITY.value()
+        val validationResponse = ValidationResponse(status)
+        validationResponse.validationErrors.putAll(exception.errors.mapKeys { entry -> entry.key.name })
+        return ResponseEntity.status(status).body(validationResponse)
+    }
+
+
+    /**
      * Override the [handleMethodArgumentNotValid] function to return the field errors stored under the bindingResult.
      *
      * @param exception The exception
@@ -53,8 +69,8 @@ class ValidationExceptionHandler : ResponseEntityExceptionHandler() {
     override fun handleMethodArgumentNotValid(exception: MethodArgumentNotValidException, headers: HttpHeaders,
                                               status: HttpStatus, request: WebRequest): ResponseEntity<Any> {
         val bindingResult = exception.bindingResult
-        val status = HttpStatus.UNPROCESSABLE_ENTITY.value()
-        val validationResponse = ValidationResponse(status)
+        val httpStatus = HttpStatus.UNPROCESSABLE_ENTITY.value()
+        val validationResponse = ValidationResponse(httpStatus)
         bindingResult.fieldErrors
                 .forEach { error ->
                     run {
@@ -64,7 +80,7 @@ class ValidationExceptionHandler : ResponseEntityExceptionHandler() {
                         }
                     }
                 }
-        return ResponseEntity.status(status).body(validationResponse)
+        return ResponseEntity.status(httpStatus).body(validationResponse)
     }
 
 }

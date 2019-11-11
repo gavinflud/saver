@@ -13,19 +13,22 @@ import javax.persistence.ManyToMany
  * account and payments are made from it, these would register as transactions under it.
  */
 @Entity(name = "gf_account")
-class Account(_name: String, _users: Set<ApplicationUser>) : IdentifiableEntity() {
+class Account(
 
-    /**
-     * The account name.
-     */
-    @Column(name = "gf_name")
-    private val name: String = _name
+        /**
+         * The account name.
+         */
+        @Column(name = "gf_name")
+        private var name: String,
 
-    /**
-     * The users that have access to the account.
-     */
-    @ManyToMany(mappedBy = "accounts")
-    @JsonIgnore
-    private val users: Set<ApplicationUser> = _users
+        /**
+         * The users that have access to the account.
+         */
+        @ManyToMany(mappedBy = "accounts")
+        @JsonIgnore
+        private var users: Set<ApplicationUser> = mutableSetOf()
 
+) : IdentifiableEntity() {
+
+        
 }

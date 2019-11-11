@@ -76,6 +76,7 @@ class SecurityConfig(val userDetailsService: SimpleUserDetailsService,
         configuration.allowedOrigins = singletonList(CorsConfiguration.ALL)
         configuration.allowedMethods = singletonList(CorsConfiguration.ALL)
         configuration.allowedHeaders = singletonList(CorsConfiguration.ALL)
+        configuration.exposedHeaders = singletonList(properties.header)
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
