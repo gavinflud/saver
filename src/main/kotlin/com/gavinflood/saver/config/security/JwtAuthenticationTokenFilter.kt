@@ -58,7 +58,7 @@ class JwtAuthenticationTokenFilter(
                                           filterChain: FilterChain, authentication: Authentication) {
         val token = JWT.create()
                 .withSubject((authentication.principal as User).username)
-                .withExpiresAt(Date(System.currentTimeMillis() + properties.expirationTime!!))
+                .withExpiresAt(Date(System.currentTimeMillis() + properties.expirationTime))
                 .sign(HMAC512(properties.secret.toByteArray()))
         response.addHeader(properties.header, properties.tokenPrefix + " " + token)
     }

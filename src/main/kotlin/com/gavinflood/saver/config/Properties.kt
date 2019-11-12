@@ -15,7 +15,7 @@ class Properties {
      * The expiration time for a JWT token
      */
     @Value("\${saver.jwt.expiration}")
-    val expirationTime: Long? = null
+    val expirationTime: Long = 10800000
 
     /**
      * The secret for a JWT token
