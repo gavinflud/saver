@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "account",
+      "types": [
+        {
+          "code": "current",
+          "name": "Current Account",
+          "description": "Current Account"
+        },
+        {
+          "code": "savings",
+          "name": "Savings Account",
+          "description": "Savings Account"
+        },
+        {
+          "code": "credit",
+          "name": "Credit Card",
+          "description": "Credit Card"
+        }
+      ]
+    }
+  ]
+}

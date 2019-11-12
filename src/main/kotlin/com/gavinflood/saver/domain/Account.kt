@@ -1,9 +1,7 @@
 package com.gavinflood.saver.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.ManyToMany
+import javax.persistence.*
 
 
 /**
@@ -19,16 +17,20 @@ class Account(
          * The account name.
          */
         @Column(name = "gf_name")
-        private var name: String,
+        var name: String,
+
+        /**
+         * The type of the account.
+         */
+        @ManyToOne
+        @JoinColumn(name = "gf_account_type_id")
+        var accountType: Type,
 
         /**
          * The users that have access to the account.
          */
         @ManyToMany(mappedBy = "accounts")
         @JsonIgnore
-        private var users: Set<ApplicationUser> = mutableSetOf()
+        var users: Set<ApplicationUser> = mutableSetOf()
 
-) : IdentifiableEntity() {
-
-        
-}
+) : IdentifiableEntity()

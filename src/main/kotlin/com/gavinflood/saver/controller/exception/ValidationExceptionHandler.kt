@@ -1,6 +1,6 @@
 package com.gavinflood.saver.controller.exception
 
-import com.gavinflood.saver.domain.validation.exception.ServiceValidationException
+import com.gavinflood.saver.domain.exception.ServiceValidationException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

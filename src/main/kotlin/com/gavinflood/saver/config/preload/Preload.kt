@@ -1,7 +1,7 @@
 package com.gavinflood.saver.config.preload
 
 import com.gavinflood.saver.config.Properties
-import com.gavinflood.saver.config.security.constant.Constants
+import com.gavinflood.saver.config.constants.SecurityConstants
 import com.gavinflood.saver.domain.ApplicationUser
 import com.gavinflood.saver.domain.Credential
 import com.gavinflood.saver.domain.Permission
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component
 @Component
 class Preload(val userRepository: ApplicationUserRepository, val roleRepository: RoleRepository,
               val permissionRepository: PermissionRepository, val credentialRepository: CredentialRepository,
-              val passwordEncoder: PasswordEncoder, val properties: Properties)
+              val passwordEncoder: PasswordEncoder, val typePreload: TypePreload, val properties: Properties)
     : ApplicationListener<ContextRefreshedEvent> {
 
     private var hasPreloadAlreadyCompleted = false
@@ -41,13 +41,15 @@ class Preload(val userRepository: ApplicationUserRepository, val roleRepository:
      */
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         if (!hasPreloadAlreadyCompleted) {
-            val defaultPermission = createOrUpdatePermission(Constants.PERMISSION_DEFAULT)
-            val adminPermission = createOrUpdatePermission(Constants.PERMISSION_ADMIN)
+            typePreload.run()
+
+            val defaultPermission = createOrUpdatePermission(SecurityConstants.PERMISSION_DEFAULT)
+            val adminPermission = createOrUpdatePermission(SecurityConstants.PERMISSION_ADMIN)
             val adminPermissions = mutableSetOf(defaultPermission, adminPermission)
             val userPermissions = mutableSetOf(defaultPermission)
 
-            val adminRole = createOrUpdateRole(Constants.ROLE_ADMIN, adminPermissions)
-            createOrUpdateRole(Constants.ROLE_USER, userPermissions)
+            val adminRole = createOrUpdateRole(SecurityConstants.ROLE_ADMIN, adminPermissions)
+            createOrUpdateRole(SecurityConstants.ROLE_USER, userPermissions)
             val adminRoles = mutableSetOf(adminRole)
 
             createOrUpdateUser("Super", "User", "su", properties.adminPassword, adminRoles)
@@ -79,7 +81,7 @@ class Preload(val userRepository: ApplicationUserRepository, val roleRepository:
         val role = if (roleResult.isPresent) {
             val r = roleResult.get()
             r.permissions = permissions
-            return r
+            r
         } else Role(name, permissions)
         return roleRepository.save(role)
     }

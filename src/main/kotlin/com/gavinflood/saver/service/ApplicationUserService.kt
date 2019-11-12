@@ -1,9 +1,9 @@
 package com.gavinflood.saver.service
 
-import com.gavinflood.saver.config.security.constant.Constants
+import com.gavinflood.saver.config.constants.SecurityConstants
 import com.gavinflood.saver.domain.ApplicationUser
 import com.gavinflood.saver.domain.Credential
-import com.gavinflood.saver.domain.validation.exception.ServiceValidationException
+import com.gavinflood.saver.domain.exception.ServiceValidationException
 import com.gavinflood.saver.repository.ApplicationUserRepository
 import com.gavinflood.saver.repository.CredentialRepository
 import com.gavinflood.saver.repository.RoleRepository
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service
 @Service
 class ApplicationUserService(repository: ApplicationUserRepository, val credentialRepository: CredentialRepository,
                              val roleRepository: RoleRepository, private val passwordEncoder: PasswordEncoder)
-    : BaseService<ApplicationUser>(repository) {
+    : BaseService<ApplicationUser, ApplicationUserRepository>(repository) {
 
     /**
      * Create and save a new user.
@@ -33,7 +33,7 @@ class ApplicationUserService(repository: ApplicationUserRepository, val credenti
 
         val password = resource.credential.password
         resource.credential.password = passwordEncoder.encode(password)
-        resource.roles.add(roleRepository.findByName(Constants.ROLE_USER).get())
+        resource.roles.add(roleRepository.findByName(SecurityConstants.ROLE_USER).get())
         return super.create(resource)
     }
 

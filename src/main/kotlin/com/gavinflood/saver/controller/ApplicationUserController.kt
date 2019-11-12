@@ -2,6 +2,7 @@ package com.gavinflood.saver.controller
 
 import com.gavinflood.saver.domain.ApplicationUser
 import com.gavinflood.saver.domain.response.sendOkResponse
+import com.gavinflood.saver.repository.ApplicationUserRepository
 import com.gavinflood.saver.service.ApplicationUserService
 import com.gavinflood.saver.service.SecurityService
 import org.springframework.http.ResponseEntity
@@ -17,7 +18,7 @@ import javax.validation.Valid
 @RequestMapping("/api/users")
 class ApplicationUserController(override val service: ApplicationUserService,
                                 private val securityService: SecurityService)
-    : BaseController<ApplicationUser, ApplicationUserService>(service) {
+    : BaseController<ApplicationUser, ApplicationUserRepository, ApplicationUserService>(service) {
 
     /**
      * Register a user.

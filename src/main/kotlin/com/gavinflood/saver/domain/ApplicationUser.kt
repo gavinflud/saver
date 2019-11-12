@@ -1,7 +1,7 @@
 package com.gavinflood.saver.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.gavinflood.saver.config.security.constant.Constants
+import com.gavinflood.saver.config.constants.SecurityConstants
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import javax.persistence.*
@@ -12,8 +12,8 @@ import javax.validation.constraints.Size
  * A user of the application. A user can be anything from a registered user who owns multiple accounts, to an
  * administrator.
  *
- * @param The first name
- * @param The last name
+ * @param firstName The first name
+ * @param lastName The last name
  * @param credential The credential that authenticates the user
  */
 @Entity(name = "gf_application_user")
@@ -82,7 +82,7 @@ class ApplicationUser(
     fun getAuthorities(): Set<GrantedAuthority> {
         return roles
                 .flatMap { role -> role.permissions }
-                .map { permission -> SimpleGrantedAuthority(Constants.getAuthorityName(permission.name)) }
+                .map { permission -> SimpleGrantedAuthority(SecurityConstants.getAuthorityName(permission.name)) }
                 .toSet()
     }
 
@@ -92,6 +92,6 @@ class ApplicationUser(
     fun isAdmin(): Boolean {
         return getAuthorities()
                 .map { grantedAuthority -> grantedAuthority.authority }
-                .contains(Constants.PERMISSION_ADMIN)
+                .contains(SecurityConstants.PERMISSION_ADMIN)
     }
 }

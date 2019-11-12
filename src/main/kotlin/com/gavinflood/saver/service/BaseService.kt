@@ -12,7 +12,7 @@ import javax.persistence.NoResultException
  *
  * @param repository The repository used by the entity this service applies to
  */
-abstract class BaseService<T : IdentifiableEntity>(protected open val repository: BaseRepository<T>) {
+abstract class BaseService<T : IdentifiableEntity, S : BaseRepository<T>>(protected open val repository: S) {
 
     /**
      * Create and save a new resource.

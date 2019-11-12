@@ -1,9 +1,9 @@
 package com.gavinflood.saver.helper.builder
 
-import com.gavinflood.saver.config.security.constant.Constants
+import com.gavinflood.saver.config.constants.SecurityConstants
 import com.gavinflood.saver.domain.Role
 
-class RoleBuilder(private var name: String = Constants.ROLE_USER) : BaseBuilder<Role>() {
+class RoleBuilder(private var name: String = SecurityConstants.ROLE_USER) : BaseBuilder<Role>() {
 
     private val permissionBuilders = mutableListOf<PermissionBuilder>()
 

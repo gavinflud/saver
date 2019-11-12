@@ -1,7 +1,7 @@
 package com.gavinflood.saver.service
 
 import com.gavinflood.saver.BaseTest
-import com.gavinflood.saver.config.security.constant.Constants
+import com.gavinflood.saver.config.constants.SecurityConstants
 import com.gavinflood.saver.domain.ApplicationUser
 import com.gavinflood.saver.helper.builder.RoleBuilder
 import com.gavinflood.saver.repository.ApplicationUserRepository
@@ -43,14 +43,14 @@ class ApplicationUserServiceTest : BaseTest() {
     @Test
     fun testCreateAssignsDefaultUserRole() {
         whenever(credentialRepository.findByUsername(anyString())).thenReturn(Optional.empty())
-        whenever(roleRepository.findByName(Constants.ROLE_USER)).thenReturn(Optional.of(RoleBuilder().build()))
+        whenever(roleRepository.findByName(SecurityConstants.ROLE_USER)).thenReturn(Optional.of(RoleBuilder().build()))
         whenever(userRepository.save(any<ApplicationUser>())).then(returnsFirstArg<ApplicationUser>())
 
         var user = createDefaultApplicationUser()
         assertTrue(user.roles.isEmpty())
 
         user = userService.create(user)
-        assertTrue(user.roles.any { role -> role.name == Constants.ROLE_USER })
+        assertTrue(user.roles.any { role -> role.name == SecurityConstants.ROLE_USER })
     }
 
 }

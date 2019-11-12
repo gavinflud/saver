@@ -53,4 +53,10 @@ class Properties {
     @Value("\${saver.preload.user.admin.password}")
     lateinit var adminPassword: String
 
+    /**
+     * The import directory
+     */
+    @Value("\${saver.import.directory}")
+    lateinit var importDirectory: String
+
 }

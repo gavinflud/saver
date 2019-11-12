@@ -1,4 +1,4 @@
-package com.gavinflood.saver.domain.validation.exception
+package com.gavinflood.saver.domain.exception
 
 import kotlin.reflect.KProperty1
 

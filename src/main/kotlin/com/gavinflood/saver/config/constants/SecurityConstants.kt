@@ -1,9 +1,9 @@
-package com.gavinflood.saver.config.security.constant
+package com.gavinflood.saver.config.constants
 
 /**
- * Security constants
+ * Security constants.
  */
-class Constants {
+class SecurityConstants {
 
     companion object {
 
