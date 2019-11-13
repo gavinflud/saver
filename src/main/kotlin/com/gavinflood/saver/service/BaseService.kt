@@ -4,7 +4,6 @@ import com.gavinflood.saver.domain.IdentifiableEntity
 import com.gavinflood.saver.repository.BaseRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import java.util.*
 import javax.persistence.NoResultException
 
 /**
@@ -28,10 +27,15 @@ abstract class BaseService<T : IdentifiableEntity, S : BaseRepository<T>>(protec
      * Find one resource using its unique ID.
      *
      * @param id The ID identifying the resource
-     * @return An Optional wrapper of the result
+     * @return The found resource
      */
-    open fun findOne(id: Long): Optional<T> {
-        return repository.findById(id)
+    open fun findOne(id: Long): T {
+        val result = repository.findById(id)
+        if (result.isPresent) {
+            return result.get()
+        }
+
+        throw NoResultException("No entity with ID '$id' found")
     }
 
     /**
@@ -61,14 +65,9 @@ abstract class BaseService<T : IdentifiableEntity, S : BaseRepository<T>>(protec
      * @return The resource as it was before it was deleted
      */
     open fun delete(id: Long): T {
-        val entityResult = findOne(id)
-        if (entityResult.isPresent) {
-            val entity = entityResult.get()
-            repository.delete(entity)
-            return entity
-        }
-
-        throw NoResultException("No entity with ID '$id' found")
+        val resource = findOne(id)
+        repository.delete(resource)
+        return resource
     }
 
 }

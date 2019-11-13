@@ -49,7 +49,7 @@ class ApplicationUser(
     /**
      * The accounts the user has access to.
      */
-    @ManyToMany
+    @ManyToMany(cascade = [CascadeType.ALL])
     @JoinTable(name = "gf_application_user_accounts",
             joinColumns = [JoinColumn(name = "gf_application_user_id", referencedColumnName = "gf_id")],
             inverseJoinColumns = [JoinColumn(name = "gf_account_id", referencedColumnName = "gf_id")])

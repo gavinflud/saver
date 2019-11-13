@@ -19,25 +19,25 @@ open class Type(
          * class.
          */
         @Column(name = "gf_group")
-        var group: String,
+        open var group: String?,
 
         /**
          * Easily identifies the type. This should be unique to the group.
          */
         @Column(name = "gf_code")
-        var code: String,
+        open var code: String?,
 
         /**
          * Type name.
          */
         @Column(name = "gf_name")
-        var name: String,
+        open var name: String?,
 
         /**
          * Type description
          */
         @Column(name = "gf_description")
-        var description: String
+        open var description: String?
 
 ) : IdentifiableEntity()
 

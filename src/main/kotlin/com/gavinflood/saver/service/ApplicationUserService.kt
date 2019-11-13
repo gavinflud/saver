@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service
  * Business logic for an [ApplicationUser].
  *
  * @param repository The repository to interact with the database layer
+ * @param credentialRepository Repository for the [Credential] entity
+ * @param roleRepository Repository for the Role entity
+ * @param passwordEncoder The password encoder implementation
  */
 @Service
 class ApplicationUserService(repository: ApplicationUserRepository, val credentialRepository: CredentialRepository,

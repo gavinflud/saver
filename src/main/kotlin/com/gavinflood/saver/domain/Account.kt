@@ -24,13 +24,27 @@ class Account(
          */
         @ManyToOne
         @JoinColumn(name = "gf_account_type_id")
-        var accountType: Type,
+        var accountType: Type
 
-        /**
-         * The users that have access to the account.
-         */
-        @ManyToMany(mappedBy = "accounts")
-        @JsonIgnore
-        var users: Set<ApplicationUser> = mutableSetOf()
+) : IdentifiableEntity() {
 
-) : IdentifiableEntity()
+    /**
+     * The users that have access to the account.
+     */
+    @ManyToMany(mappedBy = "accounts", cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
+    @JsonIgnore
+    var users: MutableSet<ApplicationUser> = mutableSetOf()
+
+    /**
+     * Constructor that will mostly be called through Jackson from REST API calls (since the users don't have to be
+     * passed in the payload).
+     *
+     * @param name The account name
+     * @param accountType The type of the account
+     * @param _users The users that have access to the account
+     */
+    constructor(name: String, accountType: Type, _users: MutableSet<ApplicationUser>) : this(name, accountType) {
+        users = _users
+    }
+    
+}

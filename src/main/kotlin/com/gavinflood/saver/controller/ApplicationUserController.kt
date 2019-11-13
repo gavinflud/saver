@@ -13,22 +13,23 @@ import javax.validation.Valid
  * REST controller exposing operations for the [ApplicationUser] entity.
  *
  * @param service The service associated with [ApplicationUser]
+ * @param securityService Service exposing security functionality
  */
 @RestController
 @RequestMapping("/api/users")
-class ApplicationUserController(override val service: ApplicationUserService,
+class ApplicationUserController(service: ApplicationUserService,
                                 private val securityService: SecurityService)
     : BaseController<ApplicationUser, ApplicationUserRepository, ApplicationUserService>(service) {
 
     /**
      * Register a user.
      *
-     * @param user The user data
+     * @param resource The user data
      * @return The persisted user
      */
     @PostMapping
-    fun register(@RequestBody @Valid user: ApplicationUser): ResponseEntity<ApplicationUser> {
-        return sendOkResponse(service.create(user))
+    override fun create(@RequestBody @Valid resource: ApplicationUser): ResponseEntity<ApplicationUser> {
+        return super.create(resource)
     }
 
     /**
@@ -38,8 +39,8 @@ class ApplicationUserController(override val service: ApplicationUserService,
      * @return The matching user, if any found
      */
     @GetMapping("/{id}")
-    fun findOne(@PathVariable id: Long): ResponseEntity<ApplicationUser> {
-        return sendOkResponse(service.findOne(id).orElseThrow())
+    override fun findOne(@PathVariable id: Long): ResponseEntity<ApplicationUser> {
+        return super.findOne(id)
     }
 
     /**
