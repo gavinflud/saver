@@ -50,4 +50,16 @@ class AccountController(service: AccountService) : BaseController<Account, Accou
         return super.findOne(id)
     }
 
+    /**
+     * Update an account.
+     *
+     * @param id Identifies the account
+     * @param resource The account data
+     * @return The updated account
+     */
+    @PutMapping("/{id}")
+    override fun update(@PathVariable id: Long, @RequestBody resource: Account): ResponseEntity<Account> {
+        return super.update(id, resource)
+    }
+
 }

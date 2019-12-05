@@ -56,7 +56,7 @@ class AccountService(repository: AccountRepository, val typeRepository: TypeRepo
      * @return A page of accounts
      */
     fun findAllForUser(user: ApplicationUser, pageable: Pageable): Page<Account> {
-        return repository.findByUsersContains(user, pageable)
+        return repository.findByUsersContainsOrderByName(user, pageable)
     }
 
     /**

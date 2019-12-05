@@ -1,6 +1,7 @@
 package com.gavinflood.saver.controller
 
 import com.gavinflood.saver.domain.IdentifiableEntity
+import com.gavinflood.saver.domain.response.sendBadRequestResponse
 import com.gavinflood.saver.domain.response.sendOkResponse
 import com.gavinflood.saver.repository.BaseRepository
 import com.gavinflood.saver.service.BaseService
@@ -44,6 +45,21 @@ abstract class BaseController<T : IdentifiableEntity, R : BaseRepository<T>, S :
      */
     open fun findAll(pageable: Pageable): ResponseEntity<Page<T>> {
         return sendOkResponse(service.findAll(pageable))
+    }
+
+    /**
+     * Base implementation to update a resource.
+     *
+     * @param id Identifies the resource
+     * @param resource The resource data
+     * @return The updated resource
+     */
+    open fun update(id: Long, resource: T): ResponseEntity<T> {
+        if (id != resource.id) {
+            sendBadRequestResponse(resource)
+        }
+
+        return sendOkResponse(service.update(resource))
     }
 
 }

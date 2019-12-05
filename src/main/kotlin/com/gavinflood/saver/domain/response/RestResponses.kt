@@ -8,3 +8,7 @@ import org.springframework.http.ResponseEntity
 fun <T : Any> sendOkResponse(resource: T): ResponseEntity<T> {
     return ResponseEntity.ok(resource)
 }
+
+fun <T : Any> sendBadRequestResponse(resource: T): ResponseEntity<T> {
+    return ResponseEntity.badRequest().body(resource)
+}

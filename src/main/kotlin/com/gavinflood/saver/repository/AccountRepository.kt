@@ -19,6 +19,6 @@ interface AccountRepository : BaseRepository<Account> {
      * @param pageable Defines the result paging structure
      * @return The found accounts
      */
-    fun findByUsersContains(user: ApplicationUser, pageable: Pageable): Page<Account>
+    fun findByUsersContainsOrderByName(user: ApplicationUser, pageable: Pageable): Page<Account>
 
 }
