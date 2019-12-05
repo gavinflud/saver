@@ -27,4 +27,14 @@ class TypeService(repository: TypeRepository) : BaseService<Type, TypeRepository
         return repository.findByGroupAndCode(group, code)
     }
 
+    /**
+     * Find all types based on their group.
+     *
+     * @param group Identifies the group
+     * @return The matching types
+     */
+    fun findAll(group: String): List<Type> {
+        return repository.findAllByGroup(group)
+    }
+
 }

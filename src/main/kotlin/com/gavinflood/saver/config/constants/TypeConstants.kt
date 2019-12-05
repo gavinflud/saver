@@ -16,11 +16,6 @@ class TypeConstants {
                 AccountType::class to "account"
         )
 
-        // Account type codes
-        const val ACCOUNT_CURRENT = "current"
-        const val ACCOUNT_SAVINGS = "savings"
-        const val ACCOUNT_CREDIT = "credit"
-
         /**
          * Get the related type group value based for a given [com.gavinflood.saver.domain.Type] subclass.
          *

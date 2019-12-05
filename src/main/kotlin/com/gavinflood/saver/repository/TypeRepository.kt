@@ -19,4 +19,12 @@ interface TypeRepository : BaseRepository<Type> {
      */
     fun findByGroupAndCode(group: String, code: String): Optional<Type>
 
+    /**
+     * Find all types under a particular group.
+     *
+     * @param group Identifies the group
+     * @return The matching types
+     */
+    fun findAllByGroup(group: String): List<Type>
+
 }

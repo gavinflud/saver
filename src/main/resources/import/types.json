@@ -17,6 +17,11 @@
           "code": "credit",
           "name": "Credit Card",
           "description": "Credit Card"
+        },
+        {
+          "code": "loan",
+          "name": "Loan",
+          "description": "Loan"
         }
       ]
     }
