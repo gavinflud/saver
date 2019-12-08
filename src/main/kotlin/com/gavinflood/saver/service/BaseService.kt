@@ -38,6 +38,10 @@ abstract class BaseService<T : IdentifiableEntity, S : BaseRepository<T>>(protec
         throw NoResultException("No entity with ID '$id' found")
     }
 
+    open fun findAll(): List<T> {
+        return repository.findAll().toList()
+    }
+
     /**
      * Find all resources.
      *

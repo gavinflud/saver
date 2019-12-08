@@ -5,7 +5,7 @@ import com.gavinflood.saver.domain.Account
 import com.gavinflood.saver.helper.builder.AccountBuilder
 import com.gavinflood.saver.helper.builder.AccountTypeBuilder
 import com.gavinflood.saver.repository.AccountRepository
-import com.gavinflood.saver.repository.TypeRepository
+import com.gavinflood.saver.repository.AccountTypeRepository
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -25,7 +25,7 @@ class AccountServiceTest : BaseTest() {
     private lateinit var accountRepository: AccountRepository
 
     @Mock
-    private lateinit var typeRepository: TypeRepository
+    private lateinit var accountTypeRepository: AccountTypeRepository
 
     @Mock
     private lateinit var securityService: SecurityService
@@ -34,14 +34,14 @@ class AccountServiceTest : BaseTest() {
 
     @BeforeEach
     fun beforeEach() {
-        accountService = AccountService(accountRepository, typeRepository, securityService)
+        accountService = AccountService(accountRepository, accountTypeRepository, securityService)
     }
 
     @Test
     fun testCreateAssignsCurrentUser() {
         val currentUser = createDefaultApplicationUser()
         whenever(securityService.getCurrentUser()).thenReturn(Optional.of(currentUser))
-        whenever(typeRepository.findById(anyLong())).thenReturn(Optional.of(AccountTypeBuilder().build()))
+        whenever(accountTypeRepository.findById(anyLong())).thenReturn(Optional.of(AccountTypeBuilder().build()))
         whenever(accountRepository.save(any(Account::class.java))).then(returnsFirstArg<Account>())
 
         val account = AccountBuilder(accountTypeBuilder = AccountTypeBuilder()).build()

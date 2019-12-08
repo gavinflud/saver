@@ -1,22 +1,22 @@
 {
-  "types": [
+  "data": [
     {
-      "entity": "AccountType",
+      "code": "current_account",
       "name": "Current Account",
       "description": "Current Account"
     },
     {
-      "entity": "AccountType",
-      "name": "Savings Account",
-      "description": "Savings Account"
+      "code": "savings",
+      "name": "Savings",
+      "description": "Savings"
     },
     {
-      "entity": "AccountType",
+      "code": "credit_card",
       "name": "Credit Card",
       "description": "Credit Card"
     },
     {
-      "entity": "AccountType",
+      "code": "loan",
       "name": "Loan",
       "description": "Loan"
     }

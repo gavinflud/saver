@@ -24,7 +24,7 @@ class Account(
          */
         @ManyToOne
         @JoinColumn(name = "gf_account_type_id")
-        var accountType: Type
+        var accountType: AccountType
 
 ) : IdentifiableEntity() {
 
@@ -43,8 +43,8 @@ class Account(
      * @param accountType The type of the account
      * @param _users The users that have access to the account
      */
-    constructor(name: String, accountType: Type, _users: MutableSet<ApplicationUser>) : this(name, accountType) {
+    constructor(name: String, accountType: AccountType, _users: MutableSet<ApplicationUser>) : this(name, accountType) {
         users = _users
     }
-    
+
 }

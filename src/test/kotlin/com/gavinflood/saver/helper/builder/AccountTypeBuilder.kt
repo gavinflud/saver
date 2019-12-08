@@ -1,14 +1,11 @@
 package com.gavinflood.saver.helper.builder
 
-import com.gavinflood.saver.config.constants.TypeConstants
 import com.gavinflood.saver.domain.AccountType
-import com.gavinflood.saver.domain.Type
 
-class AccountTypeBuilder(group: String = TypeConstants.getGroup(AccountType::class),
-                         code: String = "account", name: String = "Current Account",
-                         description: String = "Current Account") : TypeBuilder(group, code, name, description) {
+class AccountTypeBuilder(private val code: String = "account", private val name: String = "Current Account",
+                         private val description: String = "Current Account") : BaseBuilder<AccountType>() {
 
-    override fun build(): Type {
+    override fun build(): AccountType {
         return AccountType(code, name, description)
     }
 

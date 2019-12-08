@@ -2,8 +2,9 @@ package com.gavinflood.saver.service
 
 import com.gavinflood.saver.domain.Account
 import com.gavinflood.saver.domain.ApplicationUser
+import com.gavinflood.saver.domain.dto.AccountDTO
 import com.gavinflood.saver.repository.AccountRepository
-import com.gavinflood.saver.repository.TypeRepository
+import com.gavinflood.saver.repository.AccountTypeRepository
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Service
  * Business logic for an [Account].
  *
  * @param repository The repository to interact with the database layer
- * @param typeRepository Repository for the Type entity
+ * @param accountTypeRepository Repository for the AccountType entity
  * @param securityService Service that provides security functionality
  */
 @Service
-class AccountService(repository: AccountRepository, val typeRepository: TypeRepository,
+class AccountService(repository: AccountRepository, val accountTypeRepository: AccountTypeRepository,
                      val securityService: SecurityService)
     : BaseService<Account, AccountRepository>(repository) {
 
@@ -33,7 +34,6 @@ class AccountService(repository: AccountRepository, val typeRepository: TypeRepo
         val currentUser = securityService.getCurrentUser().orElseThrow()
         currentUser.accounts.add(resource)
         resource.users.add(currentUser)
-        resource.accountType = typeRepository.findById(resource.accountType.id).orElseThrow()
         return super.create(resource)
     }
 
@@ -77,6 +77,21 @@ class AccountService(repository: AccountRepository, val typeRepository: TypeRepo
 
         logger.warn("$logPrefix User '${currentUser.id}' does not have access to account '$id'")
         throw AccessDeniedException("You do not have access to view that account")
+    }
+
+    /**
+     * Update an existing account.
+     *
+     * @param id Identifies the account
+     * @param dto DTO containing the account changes
+     * @return The persisted account with the changes intact
+     */
+    fun update(id: Long, dto: AccountDTO): Account {
+        val account = findOne(id)
+        val accountType = accountTypeRepository.findById(dto.accountTypeId)
+        account.accountType = accountType.orElseThrow()
+        account.name = dto.name
+        return super.update(account)
     }
 
 }

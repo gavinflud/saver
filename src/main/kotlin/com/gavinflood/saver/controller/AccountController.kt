@@ -1,8 +1,12 @@
 package com.gavinflood.saver.controller
 
 import com.gavinflood.saver.domain.Account
+import com.gavinflood.saver.domain.dto.AccountDTO
+import com.gavinflood.saver.domain.exception.MethodNotImplementedException
+import com.gavinflood.saver.domain.response.sendOkResponse
 import com.gavinflood.saver.repository.AccountRepository
 import com.gavinflood.saver.service.AccountService
+import com.gavinflood.saver.service.AccountTypeService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
@@ -15,17 +19,24 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping("/api/accounts")
-class AccountController(service: AccountService) : BaseController<Account, AccountRepository, AccountService>(service) {
+class AccountController(service: AccountService, private val accountTypeService: AccountTypeService)
+    : BaseController<Account, AccountRepository, AccountService>(service) {
+
+    override fun create(@RequestBody resource: Account): ResponseEntity<Account> {
+        throw MethodNotImplementedException()
+    }
 
     /**
      * Create a new account.
      *
-     * @param resource The account to create
+     * @param dto DTO representing the account
      * @return The persisted account
      */
     @PostMapping
-    override fun create(@RequestBody resource: Account): ResponseEntity<Account> {
-        return super.create(resource)
+    fun create(@RequestBody dto: AccountDTO): ResponseEntity<Account> {
+        val accountType = accountTypeService.findOne(dto.accountTypeId)
+        val account = Account(dto.name, accountType)
+        return super.create(account)
     }
 
     /**
@@ -50,16 +61,20 @@ class AccountController(service: AccountService) : BaseController<Account, Accou
         return super.findOne(id)
     }
 
+    override fun update(@PathVariable id: Long, @RequestBody resource: Account): ResponseEntity<Account> {
+        throw MethodNotImplementedException()
+    }
+
     /**
      * Update an account.
      *
      * @param id Identifies the account
-     * @param resource The account data
+     * @param dto DTO representing the account
      * @return The updated account
      */
     @PutMapping("/{id}")
-    override fun update(@PathVariable id: Long, @RequestBody resource: Account): ResponseEntity<Account> {
-        return super.update(id, resource)
+    fun update(@PathVariable id: Long, @RequestBody dto: AccountDTO): ResponseEntity<Account> {
+        return sendOkResponse(service.update(id, dto))
     }
 
 }
