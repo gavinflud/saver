@@ -1,0 +1,64 @@
+{
+  "data": [
+    {
+      "code": "bills",
+      "name": "Bills",
+      "description": "Bills"
+    },
+    {
+      "code": "groceries",
+      "name": "Groceries",
+      "description": "Groceries"
+    },
+    {
+      "code": "savings",
+      "name": "Savings",
+      "description": "Savings"
+    },
+    {
+      "code": "motor",
+      "name": "Motor",
+      "description": "Money spent on personal vehicles"
+    },
+    {
+      "code": "clothes",
+      "name": "Clothes",
+      "description": "Clothes"
+    },
+    {
+      "code": "toiletries",
+      "name": "Toiletries",
+      "description": "Toiletries"
+    },
+    {
+      "code": "salary",
+      "name": "Salary",
+      "description": "Salary/Wages"
+    },
+    {
+      "code": "other_income",
+      "name": "Other Income",
+      "description": "Income outside of the existing categories"
+    },
+    {
+      "code": "rent_mortgage",
+      "name": "Rent/Mortgage",
+      "description": "Rent or Mortgage payments"
+    },
+    {
+      "code": "socializing",
+      "name": "Socializing",
+      "description": "Socializing"
+    },
+    {
+      "code": "gifts",
+      "name": "Gifts",
+      "description": "Gifts"
+    },
+    {
+      "code": "charity",
+      "name": "Charity",
+      "description": "Charity"
+    }
+  ]
+}

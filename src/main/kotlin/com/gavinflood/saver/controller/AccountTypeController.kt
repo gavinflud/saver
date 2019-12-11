@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * REST controller exposing operations for the [AccountType] entity.
+ *
+ * @param service The service associated with [AccountType]
+ */
 @RestController
 @RequestMapping("/api/accounttypes")
 class AccountTypeController(service: AccountTypeService)
