@@ -59,6 +59,11 @@
       "code": "charity",
       "name": "Charity",
       "description": "Charity"
+    },
+    {
+      "code": "initial_balance",
+      "name": "Initial Balance",
+      "description": "Initial Balance"
     }
   ]
 }

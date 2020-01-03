@@ -1,0 +1,104 @@
+{
+  "users": [
+    {
+      "key": 1,
+      "firstName": "Gavin",
+      "lastName": "Flood",
+      "credential": {
+        "username": "gavinflood",
+        "password": "password1234"
+      },
+      "roles": [
+        "USER"
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "key": 1,
+      "name": "Current Account",
+      "accountType": "current_account",
+      "users": [
+        1
+      ],
+      "transactions": [
+        {
+          "key": 1,
+          "description": "Initial balance",
+          "amount": 1926.81,
+          "date": "2019-11-11T15:54:33+0000",
+          "category": "initial_balance"
+        },
+        {
+          "key": 2,
+          "description": "Food shopping",
+          "amount": -87.12,
+          "date": "2019-11-13T15:54:33+0000",
+          "category": "groceries"
+        },
+        {
+          "key": 3,
+          "description": "Birthday drinks",
+          "amount": -54.03,
+          "date": "2019-11-13T21:10:33+0000",
+          "category": "socializing"
+        }
+      ]
+    },
+    {
+      "key": 2,
+      "name": "Bills Account",
+      "accountType": "current_account",
+      "users": [
+        1
+      ],
+      "transactions": [
+        {
+          "key": 1,
+          "description": "Initial balance",
+          "amount": 986.55,
+          "date": "2019-11-11T15:54:33+0000",
+          "category": "initial_balance"
+        },
+        {
+          "key": 2,
+          "description": "Car Insurance",
+          "amount": -94.10,
+          "date": "2019-11-16T15:54:33+0000",
+          "category": "motor"
+        },
+        {
+          "key": 3,
+          "description": "Our Mercy Hospital",
+          "amount": -25,
+          "date": "2019-11-18T09:10:33+0000",
+          "category": "charity"
+        }
+      ]
+    },
+    {
+      "key": 3,
+      "name": "Mastercard",
+      "accountType": "credit_card",
+      "users": [
+        1
+      ],
+      "transactions": [
+        {
+          "key": 1,
+          "description": "Initial balance",
+          "amount": -1455.94,
+          "date": "2019-11-11T15:54:33+0000",
+          "category": "initial_balance"
+        },
+        {
+          "key": 2,
+          "description": "Concert tickets",
+          "amount": -120.50,
+          "date": "2019-11-22T15:54:33+0000",
+          "category": "socializing"
+        }
+      ]
+    }
+  ]
+}

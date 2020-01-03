@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component
 class Preload(val userRepository: ApplicationUserRepository, val roleRepository: RoleRepository,
               val permissionRepository: PermissionRepository, val credentialRepository: CredentialRepository,
               val passwordEncoder: PasswordEncoder, val accountTypePreload: AccountTypePreload,
-              val properties: Properties)
+              val transactionCategoryPreload: TransactionCategoryPreload, val properties: Properties)
     : ApplicationListener<ContextRefreshedEvent> {
 
     private var hasPreloadAlreadyCompleted = false
@@ -43,6 +43,7 @@ class Preload(val userRepository: ApplicationUserRepository, val roleRepository:
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         if (!hasPreloadAlreadyCompleted) {
             accountTypePreload.run()
+            transactionCategoryPreload.run()
 
             val defaultPermission = createOrUpdatePermission(SecurityConstants.PERMISSION_DEFAULT)
             val adminPermission = createOrUpdatePermission(SecurityConstants.PERMISSION_ADMIN)

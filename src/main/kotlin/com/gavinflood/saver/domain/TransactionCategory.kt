@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne
 /**
  * Categorizes transactions. Can be general and available to all users, or created by and available to a single user.
  */
-@Entity
+@Entity(name = "gf_transaction_category")
 class TransactionCategory(
 
         /**

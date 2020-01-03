@@ -30,7 +30,7 @@ class ApplicationUser(
         /**
          * The credential the user can authenticate with.
          */
-        @OneToOne(cascade = [CascadeType.ALL])
+        @OneToOne(cascade = [CascadeType.MERGE])
         @JoinColumn(name = "gf_credential_id", referencedColumnName = "gf_id")
         var credential: Credential
 
