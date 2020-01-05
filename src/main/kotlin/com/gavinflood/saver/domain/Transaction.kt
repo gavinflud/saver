@@ -1,5 +1,6 @@
 package com.gavinflood.saver.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
 import java.util.*
 import javax.persistence.Column
@@ -30,6 +31,7 @@ class Transaction(
          */
         @ManyToOne
         @JoinColumn(name = "gf_account_id")
+        @JsonIgnore
         var account: Account,
 
         /**
